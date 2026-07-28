@@ -1,6 +1,6 @@
 # StayZ Web
 
-Monorepo dành cho phiên bản web StayZ.
+Project dành cho phiên bản web StayZ. Frontend và backend hoạt động độc lập.
 
 ## Cấu trúc
 
@@ -10,8 +10,9 @@ Monorepo dành cho phiên bản web StayZ.
 ## Chạy frontend
 
 ```bash
+cd frontend
 npm install
-npm run dev:frontend
+npm run dev
 ```
 
 Frontend mặc định gọi API production. Tạo `frontend/.env.local` để đổi API:
@@ -25,8 +26,9 @@ NEXT_PUBLIC_STAYZ_API_URL=http://localhost:3000/api
 Sao chép `backend/.env.example` thành `backend/.env`, điền cấu hình rồi chạy:
 
 ```bash
+cd backend
 npm install
-npm run dev:backend
+npm run dev
 ```
 
 Không commit file `.env` hoặc khóa bí mật.
