@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 :root {
+  --font-sans: "Inter Variable", Inter, system-ui, sans-serif;
+  --font-display: "Playfair Display Variable", Georgia, serif;
   --ink: #18231e;
   --forest: #163d2d;
   --forest-2: #245540;

@@ -1,6 +1,9 @@
 {
   "name": "stayz-web",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "workspaces": ["frontend", "backend"],
   "scripts": {
     "dev:frontend": "npm run dev --workspace frontend",
