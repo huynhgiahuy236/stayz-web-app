@@ -1,65 +1,114 @@
-import Image from "next/image";
+import Link from "next/link";
+import { HotelCard } from "@/components/hotel-card";
+import { SearchBar } from "@/components/search-bar";
+import { SiteHeader } from "@/components/site-header";
+import { getFeaturedHotels } from "@/lib/api";
+import { ArrowRight, ArrowUpRight, BadgeCheck, Headphones, ShieldCheck, Sparkles } from "lucide-react";
 
-export default function Home() {
+const destinations = [
+  { name: "Đà Nẵng", slug: "da-nang", note: "Biển xanh & nghỉ dưỡng", tone: "sunset" },
+  { name: "Đà Lạt", slug: "da-lat", note: "Thành phố ngàn hoa", tone: "forest" },
+  { name: "Hà Nội", slug: "ha-noi", note: "Tinh hoa phố cổ", tone: "amber" },
+  { name: "Vũng Tàu", slug: "vung-tau", note: "Chạm biển cuối tuần", tone: "ocean" },
+];
+
+export default async function Home() {
+  const hotels = await getFeaturedHotels();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main id="main-content">
+      <section className="hero">
+        <SiteHeader transparent />
+        <div className="hero-overlay" />
+        <div className="hero-content shell">
+          <p className="eyebrow">Khám phá Việt Nam theo cách của bạn</p>
+          <h1>Nơi nghỉ hoàn hảo<br /><em>cho hành trình của bạn.</em></h1>
+          <p className="hero-copy">
+            Từ những căn phòng nhìn ra biển đến góc nhỏ giữa lòng phố cổ —
+            tìm kỳ nghỉ được tuyển chọn riêng cho bạn.
           </p>
+          <SearchBar />
+          <div className="trust-row">
+            <span><BadgeCheck aria-hidden="true" /> Giá tốt, không phí ẩn</span>
+            <span><ShieldCheck aria-hidden="true" /> Thanh toán bảo mật</span>
+            <span><Headphones aria-hidden="true" /> Hỗ trợ 24/7</span>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section className="section shell">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow dark">Đi đâu tiếp theo?</p>
+            <h2>Điểm đến được yêu thích</h2>
+          </div>
+          <Link href="/search" className="text-link">Xem tất cả điểm đến <ArrowRight aria-hidden="true" /></Link>
         </div>
-      </main>
-    </div>
+        <div className="destination-grid">
+          {destinations.map((destination, index) => (
+            <Link
+              href={`/search?city=${destination.slug}`}
+              className={`destination-card ${destination.tone} destination-${index + 1}`}
+              key={destination.slug}
+            >
+              <span className="destination-count">StayZ chọn lọc</span>
+              <div>
+                <h3>{destination.name}</h3>
+                <p>{destination.note}</p>
+              </div>
+              <span className="round-arrow"><ArrowUpRight aria-hidden="true" /></span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="section warm">
+        <div className="shell">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow dark">Được khách hàng lựa chọn</p>
+              <h2>Nơi lưu trú nổi bật</h2>
+            </div>
+            <Link href="/search" className="text-link">Khám phá thêm <ArrowRight aria-hidden="true" /></Link>
+          </div>
+          {hotels.length ? (
+            <div className="hotel-grid">
+              {hotels.slice(0, 6).map((hotel) => <HotelCard hotel={hotel} key={hotel._id} />)}
+            </div>
+          ) : (
+            <div className="empty-state">
+              <h3>Đang chuẩn bị những nơi lưu trú tuyệt nhất</h3>
+              <p>Máy chủ có thể đang khởi động. Hãy thử lại sau ít phút.</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="promise shell">
+        <div>
+          <span className="promise-icon"><Sparkles aria-hidden="true" /></span>
+          <h3>Tuyển chọn có gu</h3>
+          <p>Mỗi nơi lưu trú đều được chọn để mang đến một trải nghiệm đáng nhớ.</p>
+        </div>
+        <div>
+          <span className="promise-icon"><ShieldCheck aria-hidden="true" /></span>
+          <h3>Đặt phòng an tâm</h3>
+          <p>Thông tin minh bạch, thanh toán bảo mật và xác nhận ngay lập tức.</p>
+        </div>
+        <div>
+          <span className="promise-icon"><Headphones aria-hidden="true" /></span>
+          <h3>Đồng hành 24/7</h3>
+          <p>Đội ngũ StayZ luôn sẵn sàng trước, trong và sau chuyến đi của bạn.</p>
+        </div>
+      </section>
+
+      <footer className="footer">
+        <div className="shell footer-inner">
+          <Link href="/" className="brand brand-light">Stay<span>Z</span></Link>
+          <p>Stay somewhere unforgettable.</p>
+          <p>© 2026 StayZ</p>
+        </div>
+      </footer>
+    </main>
   );
 }
