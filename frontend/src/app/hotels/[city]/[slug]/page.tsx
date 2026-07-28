@@ -25,7 +25,7 @@ export default async function HotelDetail({ params }: { params: Promise<{ city: 
   const price = hotel.min_price ?? hotel.base_price;
 
   return (
-    <main>
+    <main id="main-content">
       <SiteHeader />
       <div className="shell detail-shell">
         <Link href="/search" className="back-link">← Quay lại danh sách</Link>

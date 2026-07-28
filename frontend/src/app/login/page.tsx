@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/site-header";
 
 export default function LoginPage() {
   return (
-    <main className="login-page">
+    <main className="login-page" id="main-content">
       <SiteHeader />
       <section className="login-layout shell">
         <div className="login-story">

@@ -17,7 +17,7 @@ export default async function SearchPage({
   });
 
   return (
-    <main className="listing-page">
+    <main className="listing-page" id="main-content">
       <SiteHeader />
       <section className="listing-hero">
         <div className="shell">

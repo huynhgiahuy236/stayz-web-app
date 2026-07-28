@@ -177,3 +177,109 @@ button, input, select { font: inherit; }
   .login-story { min-height: 350px; padding: 28px; }
   .login-card { padding: 30px 22px; }
 }
+
+/* StayZ Web design system — generated from .codex/ui-ux-pro-max */
+:root {
+  --ink: #172554;
+  --forest: #1e3a8a;
+  --forest-2: #1e40af;
+  --cream: #f8fafc;
+  --sand: #e9eef5;
+  --gold: #a16207;
+  --line: #dbe5f1;
+  --surface: #ffffff;
+  --muted: #52617a;
+  --ring: #1e3a8a;
+}
+
+.shell { width: min(1240px, calc(100% - 48px)); }
+.skip-link { position: fixed; left: 16px; top: -80px; z-index: 100; background: var(--forest); color: white; padding: 12px 16px; border-radius: 8px; transition: top .2s; }
+.skip-link:focus { top: 16px; }
+:focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; }
+
+.hero {
+  min-height: 790px;
+  background:
+    linear-gradient(90deg, rgba(9,25,68,.88) 0%, rgba(9,25,68,.54) 52%, rgba(9,25,68,.18) 100%),
+    url("https://stayz-api.onrender.com/images/properties/intercontinental-danang-sun-peninsula-resort/main.jpg") center 45% / cover;
+}
+.hero-overlay { background: radial-gradient(circle at 76% 38%, rgba(96,165,250,.16), transparent 34%), linear-gradient(180deg, rgba(3,10,35,.28), transparent 28%, rgba(3,10,35,.22)); }
+.site-header { height: 80px; }
+.site-header.solid { background: rgba(255,255,255,.88); backdrop-filter: blur(18px); }
+.brand span { color: #d6a348; }
+.nav-links a, .nav-action { transition: color .2s, background .2s, opacity .2s; }
+.nav-links a:hover { color: #d6a348; }
+.nav-action { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; }
+.nav-action svg { width: 17px; }
+.nav-action:hover { background: white; color: var(--forest) !important; }
+.mobile-nav { display: none; }
+.mobile-nav summary { list-style: none; width: 48px; height: 48px; place-items: center; cursor: pointer; }
+.mobile-nav summary::-webkit-details-marker { display: none; }
+.mobile-nav-panel { position: fixed; inset: 0 0 auto auto; width: min(360px, 90vw); min-height: 100vh; padding: 24px; background: white; color: var(--ink); box-shadow: -24px 0 70px rgba(15,23,42,.18); display: flex; flex-direction: column; gap: 8px; }
+.mobile-nav-panel > a { min-height: 52px; display: flex; align-items: center; border-bottom: 1px solid var(--line); }
+.mobile-nav-head { display: flex; align-items: center; justify-content: space-between; font-weight: 700; margin-bottom: 20px; }
+
+.hero-content { padding-top: 100px; }
+.eyebrow { font-size: 11px; letter-spacing: .2em; color: #f1c675; }
+.eyebrow.dark { color: var(--gold); }
+.hero h1 { max-width: 850px; font-size: clamp(54px, 6.5vw, 88px); line-height: .98; text-wrap: balance; }
+.hero h1 em { color: #f4d9a6; }
+.search-bar { grid-template-columns: 1.5fr 1fr 1fr .8fr auto; padding: 9px; max-width: 1180px; border-radius: 16px; background: rgba(255,255,255,.94); backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,.72); box-shadow: 0 24px 70px rgba(9,25,68,.28); }
+.search-field { padding: 10px 16px; display: flex; align-items: center; gap: 11px; }
+.search-field > span { width: 100%; min-width: 0; }
+.search-icon { width: 19px; flex: 0 0 19px; color: var(--forest-2); }
+.search-button { border-radius: 11px; padding-inline: 24px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: background .2s, box-shadow .2s; }
+.search-button svg { width: 18px; }
+.trust-row { color: rgba(255,255,255,.82); }
+.trust-row span { display: inline-flex; align-items: center; gap: 7px; }
+.trust-row svg { width: 16px; color: #f1c675; }
+
+.section { padding-block: 104px; }
+.text-link { display: inline-flex; align-items: center; gap: 8px; }
+.text-link svg { width: 17px; transition: transform .2s; }
+.text-link:hover svg { transform: translateX(3px); }
+.destination-card { border-radius: 16px; }
+.round-arrow { width: 44px; height: 44px; backdrop-filter: blur(8px); }
+.round-arrow svg { width: 18px; }
+
+.hotel-image-wrap { height: 285px; border-radius: 14px; }
+.hotel-image-wrap > a { position: absolute; inset: 0; }
+.favorite { width: 44px; height: 44px; display: grid; place-items: center; transition: color .2s, background .2s; }
+.favorite svg { width: 19px; }
+.favorite:hover { color: #be123c; background: white; }
+.hotel-meta span { display: inline-flex; align-items: center; gap: 4px; }
+.hotel-meta svg { width: 13px; fill: #d5a13c; color: #d5a13c; }
+.hotel-location { color: var(--muted); display: flex; align-items: center; gap: 5px; }
+.hotel-location svg { width: 14px; flex: 0 0 14px; }
+.promise-icon { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 13px; color: var(--forest); background: #eaf0ff; }
+.promise-icon svg { width: 22px; }
+.footer { background: #0b1739; }
+
+.listing-search { border: 0; }
+.listing-search .search-bar { border: 1px solid var(--line); box-shadow: 0 14px 40px rgba(30,58,138,.09); max-width: none; }
+.booking-card { border-radius: 16px; box-shadow: 0 18px 50px rgba(30,58,138,.09); }
+.login-story { border-radius: 18px; background: linear-gradient(180deg, transparent, rgba(9,25,68,.9)), url("https://stayz-api.onrender.com/images/properties/ana-mandara-villa-dalat-resort/main.jpg") center/cover; }
+
+@media (max-width: 900px) {
+  .mobile-nav { display: block; }
+  .mobile-nav summary { display: grid; }
+  .search-bar { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .shell { width: min(100% - 32px, 1240px); }
+  .hero { min-height: 900px; }
+  .hero h1 { font-size: 48px; }
+  .search-bar { grid-template-columns: 1fr; }
+  .search-button { min-height: 56px; }
+  .search-button span { display: inline; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
