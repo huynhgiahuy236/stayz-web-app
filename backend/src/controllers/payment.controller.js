@@ -1,5 +1,17 @@
 const { responseSuccess } = require("../helpers/response.helper");
 const paymentService = require("../services/payment.service");
+const { WEB_CLIENT_URL } = require("../constants/app.constant");
+
+const redirectPaymentResult = (res, path, query) => {
+  if (!WEB_CLIENT_URL) return false;
+  const target = new URL(path, `${WEB_CLIENT_URL.replace(/\/$/, "")}/`);
+  for (const [key, value] of Object.entries(query)) {
+    if (Array.isArray(value)) value.forEach((item) => target.searchParams.append(key, item));
+    else if (value != null) target.searchParams.set(key, value);
+  }
+  res.redirect(target.toString());
+  return true;
+};
 
 const paymentController = {
   getAll: async (_req, res, next) => {
@@ -77,9 +89,11 @@ const paymentController = {
     }
   },
   paymentReturn: (req, res) => {
+    if (redirectPaymentResult(res, "/payment/return", req.query)) return;
     res.status(200).json({ status: "return", query: req.query });
   },
   paymentCancel: (req, res) => {
+    if (redirectPaymentResult(res, "/payment/cancel", req.query)) return;
     res.status(200).json({ status: "cancel", query: req.query });
   },
 };

@@ -166,8 +166,8 @@ const paymentService = {
       orderCode,
       amount: paymentQuote.payNow,
       description: description.substring(0, 25), // PayOS giới hạn 25 ký tự không dấu
-      cancelUrl: PAYOS_CANCEL_URL || "http://localhost:5173/payment/cancel",
-      returnUrl: PAYOS_RETURN_URL || "http://localhost:5173/payment/success",
+      cancelUrl: PAYOS_CANCEL_URL || "http://localhost:3000/payment/cancel",
+      returnUrl: PAYOS_RETURN_URL || "http://localhost:3000/payment/return",
       expiredAt: Math.floor(Date.now() / 1000) + 15 * 60,
     };
 

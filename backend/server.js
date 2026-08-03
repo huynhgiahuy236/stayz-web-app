@@ -26,9 +26,10 @@ require("./src/config/passport.config");
 const PORT = process.env.PORT || 3000;
 const allowedOrigins = new Set([
   process.env.CLIENT_URL,
-  "http://localhost:5173",
-  "http://127.0.0.1:5173",
-  "http://localhost:3000",
+  process.env.WEB_CLIENT_URL,
+  ...(process.env.NODE_ENV === "production"
+    ? []
+    : ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3000"]),
 ].filter(Boolean));
 
 function isLocalDevOrigin(origin) {
@@ -46,7 +47,11 @@ function isLocalDevOrigin(origin) {
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.has(origin) || isLocalDevOrigin(origin)) {
+      if (
+        !origin ||
+        allowedOrigins.has(origin) ||
+        (process.env.NODE_ENV !== "production" && isLocalDevOrigin(origin))
+      ) {
         callback(null, true);
         return;
       }
@@ -82,6 +87,12 @@ app.get("/health", (_req, res) => {
       client_secret: Boolean(GMAIL_CLIENT_SECRET),
       refresh_token: Boolean(GMAIL_REFRESH_TOKEN),
       sender_email: Boolean(GMAIL_SENDER_EMAIL),
+    },
+    integrations: {
+      google_oauth: Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET && process.env.GOOGLE_CALLBACK_URL),
+      web_client: Boolean(process.env.WEB_CLIENT_URL),
+      cloudinary: Boolean(process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET),
+      openai: Boolean(process.env.OPENAI_API_KEY),
     },
   };
 

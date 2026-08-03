@@ -2,6 +2,7 @@ require("dotenv").config();
 const DATABASE_URL = process.env.MONGODB_URI || process.env.DATABASE_URL;
 const SECRET = process.env.JWT_SECRET || process.env.SECRET;
 const CLIENT_URL = process.env.CLIENT_URL;
+const WEB_CLIENT_URL = process.env.WEB_CLIENT_URL;
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const GOOGLE_CALLBACK_URL = process.env.GOOGLE_CALLBACK_URL;
@@ -27,6 +28,7 @@ module.exports = {
   DATABASE_URL,
   SECRET,
   CLIENT_URL,
+  WEB_CLIENT_URL,
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
   GOOGLE_CALLBACK_URL,

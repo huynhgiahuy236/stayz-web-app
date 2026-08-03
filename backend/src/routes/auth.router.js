@@ -6,9 +6,10 @@ const authRouter = express.Router();
 
 authRouter.get(
   "/google",
-  passport.authenticate("google", {
+  (req, res, next) => passport.authenticate("google", {
     scope: ["profile", "email"],
-  }),
+    state: req.query.platform === "web" ? "web" : "app",
+  })(req, res, next),
 );
 
 authRouter.get(

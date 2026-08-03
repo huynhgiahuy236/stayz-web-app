@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState, Suspense } from "react";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { login } from "@/lib/api";
+import { API_URL } from "@/lib/api";
 
 function LoginForm() {
   const router = useRouter();
@@ -94,6 +95,20 @@ function LoginForm() {
           {loading ? <><Loader2 size={18} className="spinner" aria-hidden="true" /> Đang đăng nhập...</> : "Đăng nhập"}
         </button>
       </form>
+
+      <div style={{ display: "flex", alignItems: "center", gap: 12, margin: "20px 0", color: "var(--color-ink-3)", fontSize: 12 }}>
+        <span style={{ height: 1, background: "var(--color-border)", flex: 1 }} />
+        hoặc
+        <span style={{ height: 1, background: "var(--color-border)", flex: 1 }} />
+      </div>
+
+      <a
+        href={`${API_URL}/auth/google?platform=web`}
+        className="form-submit"
+        style={{ background: "white", color: "var(--color-ink)", border: "1px solid var(--color-border)", textDecoration: "none" }}
+      >
+        Đăng nhập với Google
+      </a>
 
       <p className="auth-alt">
         Chưa có tài khoản? <Link href="/auth/register">Đăng ký ngay</Link>
