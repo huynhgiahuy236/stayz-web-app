@@ -11,8 +11,8 @@ function LoginForm() {
   const sp = useSearchParams();
   const redirect = sp.get("redirect") ?? "/";
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("admin@stayz.local");
+  const [password, setPassword] = useState("StayZ@Admin2026");
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
