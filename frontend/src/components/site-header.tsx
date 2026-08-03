@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { LogOut, User, Heart, Calendar, ChevronDown } from "lucide-react";
+import { LogOut, User, Heart, Calendar, ChevronDown, ShieldCheck, ShieldAlert } from "lucide-react";
 import type { User as UserType } from "@/lib/types";
 
 interface Props {
@@ -67,6 +67,8 @@ export function SiteHeader({ transparent = false }: Props) {
     window.location.href = "/";
   }
 
+  const isAdmin = user?.role === "admin";
+
   return (
     <header className={`site-header ${solid ? "solid" : "transparent"}`}>
       <nav className="nav shell" aria-label="Điều hướng chính">
@@ -80,6 +82,17 @@ export function SiteHeader({ transparent = false }: Props) {
           <Link href="/search" role="menuitem">Khám phá</Link>
           <Link href="/search?type=resort" role="menuitem">Resort</Link>
           <Link href="/search?type=villa" role="menuitem">Villa</Link>
+          <Link href="/favorites" role="menuitem" style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+            <Heart size={14} aria-hidden="true" /> Yêu thích
+          </Link>
+          <Link href="/policy" role="menuitem" style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+            <ShieldCheck size={14} aria-hidden="true" /> Chính sách
+          </Link>
+          {isAdmin && (
+            <Link href="/admin" role="menuitem" style={{ color: "var(--gold)", fontWeight: 700, display: "inline-flex", alignItems: "center", gap: 4 }}>
+              <ShieldAlert size={14} aria-hidden="true" /> Quản trị
+            </Link>
+          )}
         </div>
 
         {/* Actions */}
@@ -121,6 +134,14 @@ export function SiteHeader({ transparent = false }: Props) {
                   <Link href="/favorites" className="nav-dropdown-item" role="menuitem" onClick={() => setDropOpen(false)}>
                     <Heart size={16} aria-hidden="true" /> Yêu thích
                   </Link>
+                  <Link href="/policy" className="nav-dropdown-item" role="menuitem" onClick={() => setDropOpen(false)}>
+                    <ShieldCheck size={16} aria-hidden="true" /> Điều khoản & Chính sách
+                  </Link>
+                  {isAdmin && (
+                    <Link href="/admin" className="nav-dropdown-item" role="menuitem" onClick={() => setDropOpen(false)} style={{ color: "var(--gold)", fontWeight: 700 }}>
+                      <ShieldAlert size={16} aria-hidden="true" /> Trang Quản trị (Admin)
+                    </Link>
+                  )}
                   <div className="nav-dropdown-divider" role="separator" />
                   <button className="nav-dropdown-item danger" role="menuitem" onClick={handleLogout}>
                     <LogOut size={16} aria-hidden="true" /> Đăng xuất

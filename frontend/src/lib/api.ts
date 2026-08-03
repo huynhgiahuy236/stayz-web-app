@@ -282,3 +282,21 @@ export async function markNotificationRead(token: string, notifId: string) {
 export async function markAllNotificationsRead(token: string) {
   return apiMutate<null>("PATCH", "/notifications/read-all", token);
 }
+
+// ─── Admin Endpoints ─────────────────────────────────────────────────────────
+
+export async function getAllBookingsAdmin(token: string) {
+  return (await apiGetAuth<Booking[]>("/booking/getAll", token)) ?? [];
+}
+
+export async function getAllUsersAdmin(token: string) {
+  return (await apiGetAuth<User[]>("/users/getAll", token)) ?? [];
+}
+
+export async function getAdminAuditLogs(token: string) {
+  return (await apiGetAuth<any[]>("/users/admin/audit", token)) ?? [];
+}
+
+export async function deletePropertyAdmin(token: string, propertyId: string) {
+  return apiMutate<Hotel>("DELETE", `/properties/delete/${propertyId}`, token);
+}

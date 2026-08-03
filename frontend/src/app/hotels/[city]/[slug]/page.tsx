@@ -38,18 +38,13 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
 
 export default async function HotelDetail({ params }: { params: Promise<{ city: string; slug: string }> }) {
   const { city, slug } = await params;
-  const [hotel, rooms, reviews] = await Promise.all([
-    getHotel(city, slug),
-    (async () => {
-      const h = await getHotel(city, slug);
-      return h ? getRoomsByProperty(h._id) : [];
-    })(),
-    (async () => {
-      const h = await getHotel(city, slug);
-      return h ? getReviews(h._id) : [];
-    })(),
-  ]);
+  const hotel = await getHotel(city, slug);
   if (!hotel) notFound();
+
+  const [rooms, reviews] = await Promise.all([
+    getRoomsByProperty(hotel._id),
+    getReviews(hotel._id),
+  ]);
 
   const images = [hotel.main_image_url, ...(hotel.gallery_images?.map((g) => g.url) ?? [])].filter(Boolean) as string[];
   const price = hotel.min_price ?? hotel.base_price;

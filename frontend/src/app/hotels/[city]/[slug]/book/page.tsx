@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
-import { ArrowLeft, Loader2, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { getHotel, getRoomsByProperty, createBooking, createPayment } from "@/lib/api";
 import type { Hotel, Room } from "@/lib/types";
@@ -11,15 +11,6 @@ function getToken(): string | null {
   if (typeof document === "undefined") return null;
   const m = document.cookie.split("; ").find((c) => c.startsWith("stayz_access_token="));
   return m ? m.split("=").slice(1).join("=") : null;
-}
-function getUserId(): string | null {
-  if (typeof document === "undefined") return null;
-  try {
-    const m = document.cookie.split("; ").find((c) => c.startsWith("stayz_user="));
-    if (!m) return null;
-    const u = JSON.parse(decodeURIComponent(m.split("=").slice(1).join("=")));
-    return u._id ?? null;
-  } catch { return null; }
 }
 
 function fmtPrice(n: number) { return new Intl.NumberFormat("vi-VN").format(n) + " ₫"; }
@@ -54,7 +45,11 @@ function BookContent({ city, slug }: { city: string; slug: string }) {
       if (!h) { router.replace("/search"); return; }
       setHotel(h);
       const r = await getRoomsByProperty(h._id);
-      setRooms(r.filter((rm) => rm.is_active));
+      const active = r.filter((rm) => rm.is_active);
+      setRooms(active);
+      if (!selectedRoom && active.length > 0) {
+        setSelectedRoom(active[0]._id);
+      }
       setLoading(false);
     })();
   }, [city, slug]);
@@ -94,7 +89,6 @@ function BookContent({ city, slug }: { city: string; slug: string }) {
     // Create payment link
     const { data: payment, error: pErr } = await createPayment(token, booking._id);
     if (pErr || !payment?.checkout_url) {
-      // Booking created but payment failed — redirect to bookings
       router.push("/profile/bookings");
       return;
     }
