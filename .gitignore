@@ -1,9 +1,9 @@
-node_modules/
-.next/
-backend/.env
-.env.local
-coverage/
+# Root ignored directories and files
+/test/
+/agent/
+/node_modules/
+/.vscode/
+/.idea/
+.DS_Store
 *.log
-test/
-agent/
-
+*.tmp
